@@ -1,0 +1,3 @@
+include ':ToastCompatLibrary'
+include ':app'
+rootProject.name = "AndroidToast"
