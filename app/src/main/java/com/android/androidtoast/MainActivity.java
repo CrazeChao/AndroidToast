@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     int count = 0;
     ToastCompat.IToast toast;
     public void showToast(View view){
+
         count++;
         String dis = "hello:"+count;
         toast =  ToastCompat.makeText(this.getApplicationContext(),dis, Toast.LENGTH_LONG);
