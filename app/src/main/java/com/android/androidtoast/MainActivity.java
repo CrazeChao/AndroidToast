@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         count++;
 //        String dis = "hello:"+count;
         if (toast != null){
+
+
             toast.cancel();
         }
 
