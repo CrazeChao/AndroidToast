@@ -1,6 +1,7 @@
 package com.cc.toastcompatlibrary;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,7 +98,7 @@ public  class ToastCompat {
 
                     @Override
                     public void onViewDetachedFromWindow(View v) {
-                        v.post(() -> messenger.setValue(ToastState.DETCHED));
+                        messenger.postValue(ToastState.DETACHED);
                     }
                 });
             }
@@ -128,7 +129,7 @@ public  class ToastCompat {
             ToastInfo info;
 
             public enum ToastState{
-                INIT,ATTACH,DETCHED,NONE
+                INIT,ATTACH,DETACHED,NONE
             }
         }
 
@@ -141,16 +142,22 @@ public  class ToastCompat {
                     getToastWrapper(context).messenger.observeForever(new Observer<ToastWrapper.ToastState>() {
                         @Override
                         public void onChanged(ToastWrapper.ToastState toastState) {
-                            if (toastState == ToastWrapper.ToastState.DETCHED) {
+                            if (toastState == ToastWrapper.ToastState.DETACHED) {
                                 getToastWrapper(context).messenger.removeObserver(this);
-                                getToastWrapper(context).messenger.setValue(ToastWrapper.ToastState.NONE);
-                                enqueueToast(context);
+                                getToastWrapper(context).messenger.observeForever(new Observer<ToastWrapper.ToastState>() {
+                                    @Override
+                                    public void onChanged(ToastWrapper.ToastState toastState) {
+                                        if (toastState == ToastWrapper.ToastState.NONE){
+                                            getToastWrapper(context).messenger.removeObserver(this);
+                                            enqueueToast(context);
+                                        }
+                                    }
+                                });
+                                getToastWrapper(context).messenger.postValue(ToastWrapper.ToastState.NONE);
                             }
                         }
                     });
                     getToastWrapper(context).showToast(info);
-                } else {
-                    getToastWrapper(context).resetState();
                 }
             }
 
