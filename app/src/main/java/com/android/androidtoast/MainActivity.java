@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         if (toast != null){
             toast.cancel();
         }
+
         toast =  ToastCompat.makeText(this.getApplicationContext(),"hellow", Toast.LENGTH_LONG);
         toast.show();
     }
