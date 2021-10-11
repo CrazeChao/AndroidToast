@@ -1,6 +1,8 @@
 package com.cc.toastcompatlibrary;
 
+import android.content.ComponentCallbacks;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,12 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -44,9 +48,12 @@ public  class ToastCompat {
         private ToastWrapper getToastWrapper(Context context){
             if (toastWrapper == null){
                 toastWrapper = new ToastWrapper(context);
+            } else if (toastWrapper.isLanguageConfigChanged()){
+                toastWrapper = new ToastWrapper(context);
             }
             return toastWrapper;
         }
+
 
         public static IToast makeText(Context context,CharSequence charSequence,@IntRange(from = 0,to = 1) int duration){
             ToastCompat toastCompat= ToastCompat.with();
@@ -83,7 +90,9 @@ public  class ToastCompat {
 
         public static class ToastWrapper {
             MutableLiveData<ToastState> messenger = new MutableLiveData<>();
+            Context context;
             public ToastWrapper(Context context) {
+                this.context = context;
                 messenger.setValue(ToastState.NONE);
                 View toastview = LayoutInflater.from(context).inflate(R.layout.toast_text, new FrameLayout(context));
                 toastview.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -101,6 +110,25 @@ public  class ToastCompat {
                         messenger.postValue(ToastState.DETACHED);
                     }
                 });
+                mLanguage = Locale.getDefault().getLanguage();
+                context.getApplicationContext().registerComponentCallbacks(new ComponentCallbacks() {
+                    @Override
+                    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+                        if (!Objects.equals(mLanguage, Locale.getDefault().getLanguage())){
+                            ToastWrapper.this.context = null;
+                        }
+                    }
+
+                    @Override
+                    public void onLowMemory() {
+
+                    }
+                });
+            }
+
+            String mLanguage;
+            public boolean isLanguageConfigChanged(){
+                return context == null;
             }
 
             public void resetState(){

@@ -18,14 +18,10 @@ public class MainActivity extends AppCompatActivity {
     ToastCompat.IToast toast;
     public void showToast(View view){
         count++;
-//        String dis = "hello:"+count;
         if (toast != null){
-
-
             toast.cancel();
         }
-
-        toast =  ToastCompat.makeText(this.getApplicationContext(),"hellow", Toast.LENGTH_LONG);
+        toast =  ToastCompat.makeText(App.application, App.application.getApplicationContext().getResources().getString( R.string.app_name) +" :"+count, Toast.LENGTH_LONG);
         toast.show();
     }
     public void cancelToast(View view){
