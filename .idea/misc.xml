@@ -8,6 +8,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.31875" />
+        <entry key="ToastCompatLibrary/src/main/res/drawable/shape_rectangle_toast.xml" value="0.1" />
         <entry key="ToastCompatLibrary/src/main/res/layout/toast_text.xml" value="0.1651469098277609" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14766970618034447" />
         <entry key="app/src/main/res/menu-keysexposed/menu.xml" value="0.33541666666666664" />

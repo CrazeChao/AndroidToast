@@ -27,9 +27,16 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+}
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
 }
 
 dependencies {
+    implementation (name: 'library-Font-release', ext: 'aar')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
     testImplementation 'junit:junit:4.+'
