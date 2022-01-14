@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <declare-styleable name="TextFontView">-->
+<!--        <attr name="textType">-->
+<!--            <enum name="note" value="1" />-->
+<!--            <enum name="number" value="2" />-->
+<!--            <enum name="text" value="3" />-->
+<!--        </attr>-->
+<!--        <attr name="textWeightType">-->
+<!--            <enum name="black" value="900"/>-->
+<!--            <enum name="bold" value="700"/>-->
+<!--            <enum name="medium" value="500"/>-->
+<!--            <enum name="regular" value="400"/>-->
+<!--        </attr>-->
+<!--    </declare-styleable>-->
+</resources>

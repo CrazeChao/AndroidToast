@@ -18,7 +18,7 @@
         android:paddingHorizontal="40px"
         android:height="82px"
         android:layout_marginTop="64px"
-        android:textFontWeight="400"
+        app:textWeightType="regular"
         app:textType="text"
         />
 
